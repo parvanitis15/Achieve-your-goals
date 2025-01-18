@@ -94,59 +94,61 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          if (_savedGoal != null)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            if (_savedGoal != null)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Goal',
+                      style: TextStyle(fontSize: 18.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      _savedGoal!.goalText,
+                      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            Expanded(
               child: Column(
-                children: [
-                  const Text(
-                    'Goal',
-                    style: TextStyle(fontSize: 18.0),
-                    textAlign: TextAlign.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LogScreen()),
+                      );
+                    },
+                    child: const Text('Log Daily Actions'),
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    _savedGoal!.goalText,
-                    style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LogScreen()),
-                    );
-                  },
-                  child: const Text('Log Daily Actions'),
+            if (dailyQuote != null)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: QuoteWidget(quote: dailyQuote!.text),
+              )
+            else
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Loading...",
+                  style: TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-              ],
-            ),
-          ),
-          if (dailyQuote != null)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: QuoteWidget(quote: dailyQuote!.text),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "Loading...",
-                style: TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic),
-                textAlign: TextAlign.center,
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
