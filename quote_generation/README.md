@@ -3,7 +3,7 @@
 # Quote Generation Project
 
 ## Overview
-This project leverages GitHub Models to generate an inspiring quote about new beginnings, personal growth, or fresh starts. It uses the Flask API to set up an API endpoint to send the quote.
+This project leverages GitHub Models to generate an inspiring quote about building new habits. It uses the Flask API to set up an API endpoint to send the quote.
 
 ## Project Structure
 ```
@@ -11,9 +11,11 @@ quote-generation-project
 ├── src
 │   ├── main.py
 │   ├── api
-│   │   └── quote_api.py
+│   │   └── quote_generator.py
+|   |   └── test_quote_generator.py
 │   ├── models
 │   │   └── quote_model.py
+|   |   └── test_quote_model.py
 │   └── utils
 │       └── helper.py
 ├── requirements.txt
@@ -52,6 +54,7 @@ quote-generation-project
      ```
      export GITHUB_TOKEN=<your_personal_access_token>
      ```
+   - For more information: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 
 ## Usage
 To run the application, execute the following command:
