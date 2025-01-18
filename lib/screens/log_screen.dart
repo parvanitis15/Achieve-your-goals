@@ -68,7 +68,9 @@ class _LogScreenState extends State<LogScreen> {
               child: const Text('Log Action'),
             ),
             const SizedBox(height: 20),
-            ActionLogWidget(actionLog: _actionLog),
+            Expanded(
+              child: ActionLogWidget(actionLog: _actionLog),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

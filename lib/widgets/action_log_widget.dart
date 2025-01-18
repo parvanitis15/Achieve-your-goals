@@ -8,8 +8,7 @@ class ActionLogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
+    return ListView.builder(
         itemCount: actionLog.length,
         itemBuilder: (context, index) {
           return ListTile(
@@ -17,7 +16,6 @@ class ActionLogWidget extends StatelessWidget {
             subtitle: Text(actionLog[index].date.toIso8601String().replaceFirst('T', ' ').split(':').sublist(0, 2).join(':')),
           );
         },
-      ),
     );
   }
 }

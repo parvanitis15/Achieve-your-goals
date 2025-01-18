@@ -4,7 +4,9 @@ import '../models/goal.dart';
 import '../widgets/goal_input_widget.dart';
 
 class GoalScreen extends StatefulWidget {
-  const GoalScreen({super.key});
+  final Function(Goal) onGoalUpdated;
+
+  const GoalScreen({super.key, required this.onGoalUpdated});
 
   @override
   _GoalScreenState createState() => _GoalScreenState();
@@ -54,13 +56,15 @@ class _GoalScreenState extends State<GoalScreen> {
             GoalInputWidget(
               goalController: _goalController,
               onSave: () async {
+                final newGoal = Goal(
+                  goalText: _goalController.text,
+                  dateSet: DateTime.now(),
+                );
                 setState(() {
-                  _savedGoal = Goal(
-                    goalText: _goalController.text,
-                    dateSet: DateTime.now(),
-                  );
+                  _savedGoal = newGoal;
                 });
                 await _saveGoal();
+                widget.onGoalUpdated(newGoal);
               },
             ),
             const SizedBox(height: 20),
