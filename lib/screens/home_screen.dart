@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Quote? dailyQuote;
   Goal? _savedGoal;
   ActionLog? _lastAction;
+  bool _actionPerformedToday = false;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     _loadLastAction();
+    _checkActionPerformedToday();
   }
 
   Future<void> fetchQuote() async {
@@ -82,6 +84,36 @@ class _HomeScreenState extends State<HomeScreen> {
           _lastAction = ActionLog.fromJson(actionLogJson.last);
         });
       }
+    }
+  }
+
+  Future<void> _checkActionPerformedToday() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? actionLogString = prefs.getString('actionLog');
+    if (actionLogString != null) {
+      final List<dynamic> actionLogJson = jsonDecode(actionLogString);
+      if (actionLogJson.isNotEmpty) {
+        final lastAction = ActionLog.fromJson(actionLogJson.last);
+        if (lastAction.date.day == DateTime.now().day &&
+            lastAction.date.month == DateTime.now().month &&
+            lastAction.date.year == DateTime.now().year) {
+          setState(() {
+            _actionPerformedToday = true;
+          });
+        } else {
+          setState(() {
+            _actionPerformedToday = false;
+          });
+        }
+      } else {
+        setState(() {
+          _actionPerformedToday = false;
+        });
+      }
+    } else {
+      setState(() {
+        _actionPerformedToday = false;
+      });
     }
   }
 
@@ -145,6 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onActionLogged: (newAction) {
                               setState(() {
                                 _lastAction = newAction.action == 'None' ? null : newAction;
+                                _checkActionPerformedToday();
                               });
                             },
                           ),
@@ -169,6 +202,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'No actions logged yet',
                         style: TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  if (!_actionPerformedToday)
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'No actions logged today',
+                        style: TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic, color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
                     ),

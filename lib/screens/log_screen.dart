@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:new_beginnings/models/action_log.dart';
-import 'package:new_beginnings/widgets/action_log_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -16,11 +15,13 @@ class LogScreen extends StatefulWidget {
 class _LogScreenState extends State<LogScreen> {
   final TextEditingController _actionController = TextEditingController();
   final List<ActionLog> _actionLog = [];
+  bool _actionPerformedToday = false;
 
   @override
   void initState() {
     super.initState();
     _loadActionLog();
+    _checkActionPerformedToday();
   }
 
   Future<void> _loadActionLog() async {
@@ -40,6 +41,36 @@ class _LogScreenState extends State<LogScreen> {
     await prefs.setString('actionLog', actionLogString);
   }
 
+  Future<void> _checkActionPerformedToday() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? actionLogString = prefs.getString('actionLog');
+    if (actionLogString != null) {
+      final List<dynamic> actionLogJson = jsonDecode(actionLogString);
+      if (actionLogJson.isNotEmpty) {
+        final lastAction = ActionLog.fromJson(actionLogJson.last);
+        if (lastAction.date.day == DateTime.now().day &&
+            lastAction.date.month == DateTime.now().month &&
+            lastAction.date.year == DateTime.now().year) {
+          setState(() {
+            _actionPerformedToday = true;
+          });
+        } else {
+          setState(() {
+            _actionPerformedToday = false;
+          });
+        }
+      } else {
+        setState(() {
+          _actionPerformedToday = false;
+        });
+      }
+    } else {
+      setState(() {
+        _actionPerformedToday = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +82,15 @@ class _LogScreenState extends State<LogScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if (!_actionPerformedToday)
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'No actions logged today',
+                  style: TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic, color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             TextField(
               controller: _actionController,
               decoration: const InputDecoration(
@@ -80,6 +120,7 @@ class _LogScreenState extends State<LogScreen> {
                         setState(() {
                           _actionLog.removeAt(index);
                           _saveActionLog();
+                          _checkActionPerformedToday();
                           if (widget.onActionLogged != null) {
                             widget.onActionLogged!(_actionLog.isNotEmpty ? _actionLog.last : ActionLog(action: 'None', date: DateTime.now()));
                           }
@@ -109,6 +150,7 @@ class _LogScreenState extends State<LogScreen> {
       _actionLog.add(newAction);
       _actionController.clear();
       _saveActionLog();
+      _checkActionPerformedToday();
       if (widget.onActionLogged != null) {
         widget.onActionLogged!(newAction);
       }
