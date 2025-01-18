@@ -57,6 +57,12 @@ void main() {
     });
 
     testWidgets('HomeScreen navigates to LogScreen when button is pressed', (WidgetTester tester) async {
+      // Set up the shared preferences so that a goal is saved and the goal setting is not displayed
+      SharedPreferences.setMockInitialValues({
+        'goalText': 'Learn Flutter',
+        'dateSet': DateTime.now().toString(),
+      });
+
       await tester.pumpWidget(MaterialApp(home: HomeScreen()));
       await tester.tap(find.text('Log Daily Actions'));
       await tester.pumpAndSettle();
