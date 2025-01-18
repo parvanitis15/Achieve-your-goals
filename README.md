@@ -1,7 +1,7 @@
 # Achieve Your Goals
 
 ## Overview
-The Achieve Your Goals is designed to inspire users to embrace new habits through daily quotes, goal setting, and action logging. This application provides a user-friendly interface to help individuals stay motivated and track their progress towards personal goals.
+The Achieve Your Goals app is designed to inspire users to embrace new habits through daily quotes, goal setting, and action logging. This application provides a user-friendly interface to help individuals stay motivated and track their progress towards personal goals.
 
 ## Features
 - **Daily Quote Generator**: Fetches and displays a new quote about building new habits each day.
@@ -31,6 +31,9 @@ new_beginnings_app
 ├── pubspec.yaml
 └── README.md
 ```
+
+## Compatibility
+This application has only been tested on a Windows machine. Compatibility with other operating systems is not guaranteed.
 
 ## Setup Instructions
 1. Clone the repository to your local machine.
