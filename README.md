@@ -1,11 +1,11 @@
-# New Beginnings App
+# Achieve Your Goals
 
 ## Overview
-The New Beginnings App is designed to inspire users to embrace new beginnings through daily quotes, goal setting, and action logging. This application provides a user-friendly interface to help individuals stay motivated and track their progress towards personal goals.
+The Achieve Your Goals is designed to inspire users to embrace new habits through daily quotes, goal setting, and action logging. This application provides a user-friendly interface to help individuals stay motivated and track their progress towards personal goals.
 
 ## Features
-- **Daily Quote Generator**: Fetches and displays a new quote about new beginnings each day.
-- **Goal Input Prompt**: Allows users to input and save their personal goals for future reference.
+- **Daily Quote Generator**: Fetches and displays a new quote about building new habits each day.
+- **Goal Input Prompt**: Allows users to input and save their personal goal.
 - **Daily Action Logging**: Users can log their daily actions towards achieving their goals and view a history of their logged actions.
 
 ## Project Structure
@@ -15,7 +15,6 @@ new_beginnings_app
 │   ├── main.dart
 │   ├── screens
 │   │   ├── home_screen.dart
-│   │   ├── quote_screen.dart
 │   │   ├── goal_screen.dart
 │   │   └── log_screen.dart
 │   ├── widgets
@@ -26,6 +25,7 @@ new_beginnings_app
 │       ├── quote.dart
 │       ├── goal.dart
 │       └── action_log.dart
+├── test
 ├── pubspec.yaml
 └── README.md
 ```
@@ -40,6 +40,12 @@ new_beginnings_app
 - Launch the app to view the daily quote on the home screen.
 - Navigate to the goal screen to set and save your personal goals.
 - Use the log screen to document daily actions taken towards your goals.
+
+## Testing
+This project uses the `flutter_test` package for unit testing. To run the tests, use the following command:
+```
+flutter test
+```
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.

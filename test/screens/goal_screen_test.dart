@@ -20,7 +20,7 @@ void main() {
       ));
 
       expect(find.byType(GoalInputWidget), findsOneWidget);
-      expect(find.widgetWithText(ElevatedButton, 'Save Goal'), findsOneWidget);
+      expect(find.widgetWithText(ElevatedButton, 'OK'), findsOneWidget);
       expect(find.widgetWithText(ElevatedButton, 'Back'), findsOneWidget);
     });
 
