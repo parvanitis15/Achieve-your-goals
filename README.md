@@ -35,6 +35,12 @@ new_beginnings_app
 ## Compatibility
 This application has only been tested on a Windows machine. Compatibility with other operating systems is not guaranteed.
 
+## Prerequisites
+- Flutter SDK
+- Visual Studio Code
+- Android Emulator or Physical Device (only tested on Windows)
+- Python 3.10 or higher and GitHub Personal Access Token (PAT) for the quote generation feature (see the [quote_generation](quote_generation) README for more information)
+
 ## Setup Instructions
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.

@@ -23,6 +23,10 @@ quote-generation-project
 └── README.md
 ```
 
+## Prerequisites
+- Python 3.10 or higher (if you have an older version, e.g. 3.6, you can probably lower the version of the dependencies in the `requirements.txt` file)
+- GitHub Personal Access Token (PAT) to access the GitHub API
+
 ## Installation
 1. Clone the repository:
    ```

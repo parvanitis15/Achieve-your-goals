@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart'; 
 import 'package:new_beginnings/screens/home_screen.dart';
 import 'package:new_beginnings/screens/goal_screen.dart';
 import 'package:new_beginnings/screens/log_screen.dart';
-import 'dart:convert';
 
 
 void main() {
