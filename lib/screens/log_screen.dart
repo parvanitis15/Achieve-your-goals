@@ -57,25 +57,38 @@ class _LogScreenState extends State<LogScreen> {
                 labelText: 'Enter your action',
                 border: OutlineInputBorder(),
               ),
+              onSubmitted: (value) {
+                _logAction();
+              },
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  final newAction = ActionLog(action: _actionController.text, date: DateTime.now());
-                  _actionLog.add(newAction);
-                  _actionController.clear();
-                  _saveActionLog();
-                  if (widget.onActionLogged != null) {
-                    widget.onActionLogged!(newAction);
-                  }
-                });
-              },
+              onPressed: _logAction,
               child: const Text('Log Action'),
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: ActionLogWidget(actionLog: _actionLog),
+              child: ListView.builder(
+                itemCount: _actionLog.length,
+                itemBuilder: (context, index) {
+                  final action = _actionLog[index];
+                  return ListTile(
+                    title: Text(action.action),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        setState(() {
+                          _actionLog.removeAt(index);
+                          _saveActionLog();
+                          if (widget.onActionLogged != null) {
+                            widget.onActionLogged!(_actionLog.isNotEmpty ? _actionLog.last : ActionLog(action: 'None', date: DateTime.now()));
+                          }
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -88,5 +101,17 @@ class _LogScreenState extends State<LogScreen> {
         ),
       ),
     );
+  }
+
+  void _logAction() {
+    setState(() {
+      final newAction = ActionLog(action: _actionController.text, date: DateTime.now());
+      _actionLog.add(newAction);
+      _actionController.clear();
+      _saveActionLog();
+      if (widget.onActionLogged != null) {
+        widget.onActionLogged!(newAction);
+      }
+    });
   }
 }

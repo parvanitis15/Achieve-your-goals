@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (context) => LogScreen(
                             onActionLogged: (newAction) {
                               setState(() {
-                                _lastAction = newAction;
+                                _lastAction = newAction.action == 'None' ? null : newAction;
                               });
                             },
                           ),
@@ -160,6 +160,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'Last Action: ${_lastAction!.action}',
                         style: const TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  else
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'No actions logged yet',
+                        style: TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic),
                         textAlign: TextAlign.center,
                       ),
                     ),
