@@ -5,7 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class LogScreen extends StatefulWidget {
-  const LogScreen({super.key});
+  final Function(ActionLog)? onActionLogged;
+
+  const LogScreen({super.key, this.onActionLogged});
 
   @override
   _LogScreenState createState() => _LogScreenState();
@@ -60,9 +62,13 @@ class _LogScreenState extends State<LogScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _actionLog.add(ActionLog(action: _actionController.text, date: DateTime.now()));
+                  final newAction = ActionLog(action: _actionController.text, date: DateTime.now());
+                  _actionLog.add(newAction);
                   _actionController.clear();
                   _saveActionLog();
+                  if (widget.onActionLogged != null) {
+                    widget.onActionLogged!(newAction);
+                  }
                 });
               },
               child: const Text('Log Action'),

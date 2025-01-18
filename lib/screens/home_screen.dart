@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:new_beginnings/models/quote.dart';
 import 'package:new_beginnings/widgets/quote_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/action_log.dart'; // Add this import
 import '../models/goal.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Quote? dailyQuote;
   Goal? _savedGoal;
+  ActionLog? _lastAction;
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     });
+    _loadLastAction();
   }
 
   Future<void> fetchQuote() async {
@@ -66,6 +69,19 @@ class _HomeScreenState extends State<HomeScreen> {
           dateSet: DateTime.parse(dateSet),
         );
       });
+    }
+  }
+
+  Future<void> _loadLastAction() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? actionLogString = prefs.getString('actionLog');
+    if (actionLogString != null) {
+      final List<dynamic> actionLogJson = jsonDecode(actionLogString);
+      if (actionLogJson.isNotEmpty) {
+        setState(() {
+          _lastAction = ActionLog.fromJson(actionLogJson.last);
+        });
+      }
     }
   }
 
@@ -124,12 +140,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LogScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => LogScreen(
+                            onActionLogged: (newAction) {
+                              setState(() {
+                                _lastAction = newAction;
+                              });
+                            },
+                          ),
+                        ),
                       );
                     },
                     child: const Text('Log Daily Actions'),
                   ),
                   const SizedBox(height: 20),
+                  if (_lastAction != null)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Last Action: ${_lastAction!.action}',
+                        style: const TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                 ],
               ),
             ),

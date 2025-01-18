@@ -82,5 +82,31 @@ void main() {
 
       expect(find.byType(GoalScreen), findsOneWidget);
     });
+
+    testWidgets('HomeScreen updates last action after logging a new action', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({
+        'goalText': 'Learn Flutter',
+        'dateSet': DateTime.now().toString(),
+      });
+
+      await tester.pumpWidget(MaterialApp(home: HomeScreen()));
+      await tester.pumpAndSettle();
+
+      // Navigate to LogScreen
+      await tester.tap(find.text('Log Daily Actions'));
+      await tester.pumpAndSettle();
+
+      // Enter a new action and log it
+      await tester.enterText(find.byType(TextField), 'New Action');
+      await tester.tap(find.text('Log Action'));
+      await tester.pumpAndSettle();
+
+      // Navigate back to HomeScreen
+      await tester.tap(find.text('Back'));
+      await tester.pumpAndSettle();
+
+      // Check if the last action is updated
+      expect(find.text('Last Action: New Action'), findsOneWidget);
+    });
   });
 }
