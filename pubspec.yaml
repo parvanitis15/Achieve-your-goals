@@ -1,0 +1,29 @@
+name: new_beginnings
+description: A Flutter application focused on new beginnings, featuring a daily quote generator, goal input prompt, and daily action logging system.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.3 # For making HTTP requests to fetch quotes
+  provider: ^6.0.0 # For state management
+  flutter_lints: ^2.0.0 # For linting
+  shared_preferences: ^2.0.6 # For storing user data locally
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  # assets:
+    # - assets/quotes/ # Directory for storing quote assets if needed
+    # - assets/images/ # Directory for storing images if needed
