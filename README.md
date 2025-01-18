@@ -25,6 +25,8 @@ new_beginnings_app
 │       ├── quote.dart
 │       ├── goal.dart
 │       └── action_log.dart
+├── quote_generation
+│   ├── README.md
 ├── test
 ├── pubspec.yaml
 └── README.md
@@ -37,8 +39,9 @@ new_beginnings_app
 4. Use `flutter run` to start the application on your preferred device.
 
 ## Usage
+- (Optionally) Set up the quote generation feature by following the instructions in the [quote_generation](quote_generation) README.
 - Launch the app to view the daily quote on the home screen.
-- Navigate to the goal screen to set and save your personal goals.
+- Navigate to the goal screen to set and save your personal goal.
 - Use the log screen to document daily actions taken towards your goals.
 
 ## Testing

@@ -1,0 +1,66 @@
+# README.md
+
+# Quote Generation Project
+
+## Overview
+This project leverages GitHub Models to generate an inspiring quote about new beginnings, personal growth, or fresh starts. It uses the Flask API to set up an API endpoint to send the quote.
+
+## Project Structure
+```
+quote-generation-project
+├── src
+│   ├── main.py
+│   ├── api
+│   │   └── quote_api.py
+│   ├── models
+│   │   └── quote_model.py
+│   └── utils
+│       └── helper.py
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+## Installation
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```
+   cd quote-generation-project
+   ```
+3. Set up a virtual environment:
+   ```
+   python -m venv venv
+   ```
+4. Activate the virtual environment:
+   - On Windows:
+     ```
+     venv\Scripts\activate
+     ```
+   - On macOS/Linux:
+     ```
+     source venv/bin/activate
+     ```
+5. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+6. Set up the Azure AI Inference API:
+   - Set the `GITHUB_TOKEN` environment variable to your personal access token:
+     ```
+     export GITHUB_TOKEN=<your_personal_access_token>
+     ```
+
+## Usage
+To run the application, execute the following command:
+```
+python src/main.py
+```
+
+## Contributing
+Contributions are welcome! Please submit a pull request or open an issue for any suggestions or improvements.
+
+## License
+This project is licensed under the MIT License.
