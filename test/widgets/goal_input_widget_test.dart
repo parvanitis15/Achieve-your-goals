@@ -4,32 +4,29 @@ import 'package:new_beginnings/widgets/goal_input_widget.dart';
 
 void main() {
   group('GoalInputWidget', () {
-    testWidgets('displays the TextField and ElevatedButton', (WidgetTester tester) async {
-      final goalController = TextEditingController();
-      final onSave = () {};
+    late TextEditingController goalController;
 
+    setUp(() {
+      goalController = TextEditingController();
+    });
+
+    testWidgets('displays the TextField', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: GoalInputWidget(
+        home: Material(
+          child: GoalInputWidget(
             goalController: goalController,
-            onSave: onSave,
           ),
         ),
       ));
 
       expect(find.byType(TextField), findsOneWidget);
-      expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets('displays the correct label text in TextField', (WidgetTester tester) async {
-      final goalController = TextEditingController();
-      final onSave = () {};
-
+    testWidgets('TextField has correct label text', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: GoalInputWidget(
+        home: Material(
+          child: GoalInputWidget(
             goalController: goalController,
-            onSave: onSave,
           ),
         ),
       ));
@@ -37,43 +34,32 @@ void main() {
       expect(find.text('Enter your goal'), findsOneWidget);
     });
 
-    testWidgets('calls onSave when ElevatedButton is pressed', (WidgetTester tester) async {
-      final goalController = TextEditingController();
-      bool onSaveCalled = false;
-      final onSave = () {
-        onSaveCalled = true;
-      };
-
+    testWidgets('TextField has OutlineInputBorder', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: GoalInputWidget(
+        home: Material(
+          child: GoalInputWidget(
             goalController: goalController,
-            onSave: onSave,
           ),
         ),
       ));
 
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
-
-      expect(onSaveCalled, isTrue);
+      final textField = tester.widget<TextField>(find.byType(TextField));
+      final decoration = textField.decoration as InputDecoration;
+      expect(decoration.border, isA<OutlineInputBorder>());
     });
 
-    testWidgets('updates TextField value', (WidgetTester tester) async {
-      final goalController = TextEditingController();
-      final onSave = () {};
-
+    testWidgets('accepts input in the TextField', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: GoalInputWidget(
+        home: Material(
+          child: GoalInputWidget(
             goalController: goalController,
-            onSave: onSave,
           ),
         ),
       ));
 
-      await tester.enterText(find.byType(TextField), 'New Goal');
-      expect(goalController.text, 'New Goal');
+      await tester.enterText(find.byType(TextField), 'Test Goal');
+      expect(goalController.text, 'Test Goal');
     });
+
   });
 }

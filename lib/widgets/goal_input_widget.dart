@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 class GoalInputWidget extends StatelessWidget {
   final TextEditingController goalController;
-  final VoidCallback onSave;
 
   const GoalInputWidget({
     super.key,
     required this.goalController,
-    required this.onSave,
   });
 
   @override
@@ -25,10 +23,6 @@ class GoalInputWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: onSave,
-            child: const Text('Save Goal'),
-          ),
         ],
       ),
     );

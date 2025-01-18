@@ -55,17 +55,6 @@ class _GoalScreenState extends State<GoalScreen> {
           children: <Widget>[
             GoalInputWidget(
               goalController: _goalController,
-              onSave: () async {
-                final newGoal = Goal(
-                  goalText: _goalController.text,
-                  dateSet: DateTime.now(),
-                );
-                setState(() {
-                  _savedGoal = newGoal;
-                });
-                await _saveGoal();
-                widget.onGoalUpdated(newGoal);
-              },
             ),
             const SizedBox(height: 20),
             if (_savedGoal != null)
@@ -75,11 +64,32 @@ class _GoalScreenState extends State<GoalScreen> {
                 style: const TextStyle(fontSize: 18.0),
               ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Back'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () async {
+                    final newGoal = Goal(
+                      goalText: _goalController.text,
+                      dateSet: DateTime.now(),
+                    );
+                    setState(() {
+                      _savedGoal = newGoal;
+                    });
+                    await _saveGoal();
+                    widget.onGoalUpdated(newGoal);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Back'),
+                ),
+              ],
             ),
           ],
         ),
