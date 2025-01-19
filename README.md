@@ -1,5 +1,7 @@
 # Achieve Your Goals
 
+![App Snapshot](app_snapshots/application.png)
+
 ## Overview
 The Achieve Your Goals app is a tool, designed to inspire users to embrace new habits through daily quotes, goal setting, and action logging. This application provides a user-friendly interface to help individuals stay motivated and track their progress towards personal goals.
 
