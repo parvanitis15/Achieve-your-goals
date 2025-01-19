@@ -26,16 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchQuote();
-    _loadSavedGoal().then((_) {
-      if (_savedGoal == null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GoalScreen(onGoalUpdated: _updateGoal),
-          ),
-        );
-      }
-    });
+    _loadSavedGoal();
     _loadLastAction();
     _checkActionPerformedToday();
   }

@@ -33,12 +33,13 @@ void main() {
     //   expect(find.text('Test Quote'), findsOneWidget);
     // });
 
-    testWidgets('HomeScreen navigates to GoalScreen if no goal is saved', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(home: HomeScreen()));
-      await tester.pumpAndSettle();
+    // Feature has been disabled
+    // testWidgets('HomeScreen navigates to GoalScreen if no goal is saved', (WidgetTester tester) async {
+    //   await tester.pumpWidget(MaterialApp(home: HomeScreen()));
+    //   await tester.pumpAndSettle();
 
-      expect(find.byType(GoalScreen), findsOneWidget);
-    });
+    //   expect(find.byType(GoalScreen), findsOneWidget);
+    // });
 
     testWidgets('HomeScreen displays the saved goal', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({
