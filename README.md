@@ -44,11 +44,12 @@ This application has only been tested on a Windows machine. Compatibility with o
 ## Setup Instructions
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
-3. Run `flutter pub get` to install the necessary dependencies.
-4. Use `flutter run` to start the application on your preferred device.
+3. Set up the quote generation feature by following the instructions in the [quote_generation](quote_generation) README (Optional - skip this step if you do not wish to use the quote generation feature).
+4. Run `flutter pub get` to install the necessary dependencies.
+5. Use `flutter run` to start the application on your preferred device.
 
 ## Usage
-- (Optionally) Set up the quote generation feature by following the instructions in the [quote_generation](quote_generation) README.
+- Launch the backend server to generate quotes (Optional - see the [quote_generation](quote_generation) README for more information).
 - Launch the app to view the daily quote on the home screen.
 - Navigate to the goal screen to set and save your personal goal.
 - Use the log screen to document daily actions taken towards your goals.
